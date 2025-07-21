@@ -1,0 +1,49 @@
+Kits:
+  default:
+    display-name: "&fDefault Kit"
+
+    icon:
+      type: DIAMOND_SWORD
+      name: "&bDefault Kit"
+      lore:
+        - "&7Kit bilanciato per tutti"
+        - "&8Contiene spada, arco, armatura e pozioni"
+
+    armor:
+      helmet:
+        type: DIAMOND_HELMET
+        enchantments:
+          PROTECTION: 2
+          UNBREAKING: 3
+      chestplate:
+        type: DIAMOND_CHESTPLATE
+        enchantments:
+          PROTECTION: 2
+      leggings:
+        type: DIAMOND_LEGGINGS
+        enchantments:
+          PROTECTION: 2
+      boots:
+        type: DIAMOND_BOOTS
+        enchantments:
+          PROTECTION: 2
+
+    inventory:
+      '0':
+        type: DIAMOND_SWORD
+        enchantments:
+          SHARPNESS: 2
+          UNBREAKING: 3
+      '1':
+        type: GOLDEN_APPLE
+        amount: 5
+      '2':
+        type: ENDER_PEARL
+        amount: 3
+      '8':
+        type: BOW
+        enchantments:
+          POWER: 1
+      '9':
+        type: ARROW
+        amount: 16

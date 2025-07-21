@@ -1,6 +1,7 @@
 package me.theparanker.duel.commands;
 
 import me.theparanker.duel.managers.impl.arenas.core.ArenasManager;
+import me.theparanker.duel.managers.impl.kits.core.KitsManager;
 import me.theparanker.duel.managers.impl.user.structure.UserStructure;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,7 +19,7 @@ public class TestCommand implements CommandExecutor {
         }else {
             player.sendMessage(user.toString());
         }
-        player.sendMessage(ArenasManager.get().getArenas().toString());
+        player.sendMessage(KitsManager.get().getKits().toString());
         return true;
     }
 }

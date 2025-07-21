@@ -14,7 +14,7 @@ public class CoralDuel {
     private CoralDuelPlugin plugin;
 
     private ManagerService managerService;
-    private ConfigFile storageFile, arenasFile;
+    private ConfigFile storageFile, arenasFile, kitsFile;
 
     public void init(CoralDuelPlugin plugin) {
         this.plugin = plugin;
@@ -36,6 +36,7 @@ public class CoralDuel {
     private void registerConfig() {
         this.storageFile = new ConfigFile(this.plugin, "storage");
         this.arenasFile = new ConfigFile(this.plugin, "arenas");
+        this.kitsFile = new ConfigFile(this.plugin, "kits");
     }
 
     public void registerListener(Listener listener) {
