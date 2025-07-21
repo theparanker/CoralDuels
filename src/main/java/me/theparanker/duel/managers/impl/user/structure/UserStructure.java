@@ -22,4 +22,20 @@ public record UserStructure(
     public static UserStructure getUser(UUID uuid) {
         return UserManager.get().getUsers().get(uuid);
     }
+
+    @Override
+    public String toString() {
+        return "UserStructure{" +
+                "uuid=" + uuid +
+                ", name='" + name + '\'' +
+                ", duelWins=" + duelWins +
+                ", duelLosses=" + duelLosses +
+                ", duelsTied=" + duelsTied +
+                ", duelStreak=" + duelStreak +
+                ", inDuel=" + inDuel +
+                ", inventorySize=" + (inventory != null ? inventory.size() : 0) +
+                ", armorSize=" + (armor != null ? armor.size() : 0) +
+                ", offHand=" + (offHand != null ? offHand.getType() : "null") +
+                '}';
+    }
 }

@@ -1,1 +1,5 @@
-
+name: duels-bukkit
+version: 1.0.0
+main: me.theparanker.duel.bootstrap.CoralDuelPlugin
+commands:
+  test:

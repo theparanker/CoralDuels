@@ -1,7 +1,9 @@
 package me.theparanker.duel.managers.impl.user.core;
 
 import lombok.Getter;
+import me.theparanker.duel.CoralDuel;
 import me.theparanker.duel.managers.impl.persistance.MySqlManager;
+import me.theparanker.duel.managers.impl.user.listener.DataListener;
 import me.theparanker.duel.managers.impl.user.structure.UserStructure;
 import me.theparanker.duel.managers.structure.Manager;
 
@@ -21,6 +23,7 @@ public class UserManager implements Manager {
     public void start() {
         INSTANCE = this;
         createTable();
+        CoralDuel.get().registerListener(new DataListener());
     }
 
     @Override
@@ -89,7 +92,6 @@ public class UserManager implements Manager {
                     save(user);
                 }
 
-                updateCache(user, false);
                 return user;
             } catch (SQLException e) {
                 e.printStackTrace();

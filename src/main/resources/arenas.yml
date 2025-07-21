@@ -1,0 +1,29 @@
+Arenas:
+  0:
+    World: world
+    FirstSpawn:
+      X: 0
+      Y: 64
+      Z: 0
+    SecondSpawn:
+      X: 10
+      Y: 64
+      Z: 10
+    SpectatorSpawn:
+      X: 20
+      Y: 64
+      Z: 20
+  1:
+    World: world
+    FirstSpawn:
+      X: 0
+      Y: 64
+      Z: 0
+    SecondSpawn:
+      X: 10
+      Y: 64
+      Z: 10
+    SpectatorSpawn:
+      X: 20
+      Y: 64
+      Z: 20

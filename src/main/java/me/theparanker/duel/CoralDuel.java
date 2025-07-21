@@ -2,8 +2,10 @@ package me.theparanker.duel;
 
 import lombok.Getter;
 import me.theparanker.duel.bootstrap.CoralDuelPlugin;
+import me.theparanker.duel.commands.TestCommand;
 import me.theparanker.duel.config.ConfigFile;
 import me.theparanker.duel.managers.core.ManagerService;
+import org.bukkit.event.Listener;
 
 @Getter
 public class CoralDuel {
@@ -12,14 +14,18 @@ public class CoralDuel {
     private CoralDuelPlugin plugin;
 
     private ManagerService managerService;
-    private ConfigFile storageFile;
+    private ConfigFile storageFile, arenasFile;
 
     public void init(CoralDuelPlugin plugin) {
         this.plugin = plugin;
         INSTANCE = this;
 
+        registerConfig();
+
         this.managerService = new ManagerService();
         this.managerService.init();
+
+        getPlugin().getCommand("test").setExecutor(new TestCommand());
     }
 
     public void shutdown() {
@@ -29,6 +35,11 @@ public class CoralDuel {
 
     private void registerConfig() {
         this.storageFile = new ConfigFile(this.plugin, "storage");
+        this.arenasFile = new ConfigFile(this.plugin, "arenas");
+    }
+
+    public void registerListener(Listener listener) {
+        getPlugin().getServer().getPluginManager().registerEvents(listener, this.plugin);
     }
 
     public static CoralDuel get() {

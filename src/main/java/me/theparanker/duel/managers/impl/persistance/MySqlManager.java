@@ -1,18 +1,19 @@
 package me.theparanker.duel.managers.impl.persistance;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import me.theparanker.duel.CoralDuel;
 import me.theparanker.duel.managers.structure.Manager;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @Getter
 public class MySqlManager implements Manager {
 
     private static MySqlManager INSTANCE;
-    private Connection connection;
+    private HikariDataSource dataSource;
 
     private final String host, port, database, user, password;
 
@@ -27,31 +28,32 @@ public class MySqlManager implements Manager {
     @Override
     public void start() {
         INSTANCE = this;
-        try {
-            connect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false&serverTimezone=UTC");
+        config.setUsername(user);
+        config.setPassword(password);
+
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(60000);
+        config.setConnectionTimeout(10000);
+        config.setMaxLifetime(600000);
+
+        config.setPoolName("CoralDuel-MySQL-Pool");
+
+        dataSource = new HikariDataSource(config);
     }
 
     @Override
     public void stop() {
-        INSTANCE = null;
-        disconnect();
-    }
-
-
-    private void connect() throws SQLException {
-        if (connection != null && !connection.isClosed()) return;
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false&serverTimezone=UTC";
-        connection = DriverManager.getConnection(url, user, password);
-    }
-
-    private void disconnect() {
-        if (connection != null) {
-            try { connection.close(); }
-            catch (SQLException e) { e.printStackTrace(); }
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
         }
+        INSTANCE = null;
+    }
+
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 
     public static MySqlManager get() {

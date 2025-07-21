@@ -1,5 +1,6 @@
 package me.theparanker.duel.managers.core;
 
+import me.theparanker.duel.managers.impl.arenas.core.ArenasManager;
 import me.theparanker.duel.managers.impl.persistance.MySqlManager;
 import me.theparanker.duel.managers.impl.user.core.UserManager;
 import me.theparanker.duel.managers.structure.Manager;
@@ -15,6 +16,7 @@ public class ManagerService {
 
         register(new MySqlManager());
         register(new UserManager());
+        register(new ArenasManager());
 
         this.MANAGERS.forEach(Manager::start);
     }
