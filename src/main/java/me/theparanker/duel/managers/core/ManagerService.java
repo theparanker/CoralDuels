@@ -1,5 +1,7 @@
 package me.theparanker.duel.managers.core;
 
+import me.theparanker.duel.managers.impl.persistance.MySqlManager;
+import me.theparanker.duel.managers.impl.user.core.UserManager;
 import me.theparanker.duel.managers.structure.Manager;
 
 import java.util.ArrayList;
@@ -11,7 +13,8 @@ public class ManagerService {
     public void init() {
         this.MANAGERS = new ArrayList<>();
 
-
+        register(new MySqlManager());
+        register(new UserManager());
 
         this.MANAGERS.forEach(Manager::start);
     }
