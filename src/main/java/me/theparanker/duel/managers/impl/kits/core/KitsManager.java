@@ -3,6 +3,8 @@ package me.theparanker.duel.managers.impl.kits.core;
 import lombok.Getter;
 import me.theparanker.duel.CoralDuel;
 import me.theparanker.duel.managers.impl.kits.structure.Kit;
+import me.theparanker.duel.managers.impl.user.core.UserManager;
+import me.theparanker.duel.managers.impl.user.structure.UserStructure;
 import me.theparanker.duel.managers.structure.Manager;
 import me.theparanker.duel.utils.ItemUtils;
 import org.bukkit.configuration.ConfigurationSection;
@@ -74,7 +76,53 @@ public class KitsManager implements Manager {
         }
     }
 
-    private void giveKitToPlayer(Player player, Kit kit) {
+    public void savePlayerContentsToMemory(Player player) {
+        UserStructure user = UserStructure.getUser(player.getUniqueId());
+        System.out.println(user + " " + player);
+
+        ArrayList<ItemStack> contents = new ArrayList<>(List.of(player.getInventory().getContents()));
+        ArrayList<ItemStack> armor = new ArrayList<>(List.of(player.getInventory().getArmorContents()));
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+
+        UserStructure updatedUser = user
+                .withInventory(contents)
+                .withArmor(armor)
+                .withOffHand(offHand);
+        UserManager.get().updateCache(updatedUser, false);
+    }
+
+    public void restorePlayerContentsFromMemory(Player player) {
+        UserStructure user = UserStructure.getUser(player.getUniqueId());
+        if (user == null) return;
+
+        player.getInventory().clear();
+
+        List<ItemStack> contents = user.inventory();
+        if (contents != null) {
+            for (int i = 0; i < contents.size(); i++) {
+                ItemStack item = contents.get(i);
+                if (item != null) {
+                    player.getInventory().setItem(i, item);
+                }
+            }
+        }
+
+        List<ItemStack> armor = user.armor();
+        if (armor != null) {
+            if (armor.size() > 0) player.getInventory().setBoots(armor.get(0));
+            if (armor.size() > 1) player.getInventory().setLeggings(armor.get(1));
+            if (armor.size() > 2) player.getInventory().setChestplate(armor.get(2));
+            if (armor.size() > 3) player.getInventory().setHelmet(armor.get(3));
+        }
+
+        ItemStack offHand = user.offHand();
+        player.getInventory().setItemInOffHand(offHand);
+
+        player.updateInventory();
+    }
+
+
+    public void giveKitToPlayer(Player player, Kit kit) {
         player.getInventory().clear();
 
         ItemStack[] armor = kit.armor();

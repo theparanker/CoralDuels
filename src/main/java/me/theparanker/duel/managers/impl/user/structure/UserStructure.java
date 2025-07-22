@@ -1,11 +1,13 @@
 package me.theparanker.duel.managers.impl.user.structure;
 
+import lombok.With;
 import me.theparanker.duel.managers.impl.user.core.UserManager;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
+@With
 public record UserStructure(
     UUID uuid,
     String name,

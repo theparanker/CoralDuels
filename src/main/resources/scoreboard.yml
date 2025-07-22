@@ -1,0 +1,9 @@
+scoreboard:
+  title: '&b&lDUELS'
+  lines:
+    - ''
+    - '&lKit: &e%kit%'
+    - ''
+    - '&lTime: &e%time_remain%'
+    - ''
+    - '&7&oplay.quarantena.rip'

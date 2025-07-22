@@ -9,18 +9,20 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class ArenasManager implements Manager {
 
     private static ArenasManager INSTANCE;
-    private List<Arena> arenas;
+    private Map<Integer,Arena> arenas;
 
     @Override
     public void start() {
         INSTANCE = this;
-        this.arenas = new ArrayList<>();
+        this.arenas = new HashMap<>();
         initializeArenas();
     }
 
@@ -47,17 +49,24 @@ public class ArenasManager implements Manager {
             if (first == null || second == null || spectator == null) continue;
 
             Arena arena = new Arena(Integer.valueOf(key), first, second, spectator, false);
-            arenas.add(arena);
+            arenas.put(arena.id(), arena);
         }
     }
 
-    private Arena getFirstAvailableArena() {
-        for (Arena arena : arenas) {
+    public Arena getFirstAvailableArena() {
+        for (Arena arena : arenas.values()) {
             if (!arena.occupied()) {
                 return arena;
             }
         }
         return null;
+    }
+
+    public void occupyArena(Arena arena) {
+        if (arenas.containsKey(arena.id())) {
+            Arena updatedArena = arena.withOccupied(true);
+            arenas.put(updatedArena.id(), updatedArena);
+        }
     }
 
     public static ArenasManager get() {

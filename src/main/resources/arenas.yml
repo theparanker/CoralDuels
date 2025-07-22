@@ -2,13 +2,13 @@ Arenas:
   0:
     World: world
     FirstSpawn:
-      X: 0
-      Y: 64
-      Z: 0
+      X: -11
+      Y: 89
+      Z: 129
     SecondSpawn:
-      X: 10
-      Y: 64
-      Z: 10
+      X: -11
+      Y: 89
+      Z: 118
     SpectatorSpawn:
       X: 20
       Y: 64
