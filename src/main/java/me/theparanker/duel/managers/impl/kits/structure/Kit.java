@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public record Kit(
         String name,
         String displayName,
+        String permission,
         ItemStack icon,
         ItemStack[] armor,
         ItemStack[] inventoryContents

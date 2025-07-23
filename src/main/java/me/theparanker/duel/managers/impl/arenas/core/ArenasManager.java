@@ -68,6 +68,16 @@ public class ArenasManager implements Manager {
             arenas.put(updatedArena.id(), updatedArena);
         }
     }
+    
+    public Arena getAvailableArena() {
+        return getFirstAvailableArena();
+    }
+    
+    public void updateArena(Arena arena) {
+        if (arenas.containsKey(arena.id())) {
+            arenas.put(arena.id(), arena);
+        }
+    }
 
     public static ArenasManager get() {
         return INSTANCE;

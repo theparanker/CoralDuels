@@ -1,7 +1,11 @@
 duel-time: 120
 
 spawn:
-  X: 0
-  Y: 0
-  Z: 0
+  X: 7
+  Y: 76
+  Z: 138
   world: world
+
+commands:
+  winner: "give {player} diamond 1"
+  loser: "give {player} dirt 1"

@@ -21,14 +21,14 @@ public class ManagerService {
         register(new UserManager());
         register(new ArenasManager());
         register(new KitsManager());
-        register(new DuelsManager());
         register(new ScoreboardManager());
+        register(new DuelsManager());
 
         this.MANAGERS.forEach(Manager::start);
     }
 
     public void shutdown() {
-        this.MANAGERS.forEach(Manager::stop);
+        this.MANAGERS.reversed().forEach(Manager::stop);
     }
 
     public void register(Manager manager) {

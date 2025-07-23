@@ -3,3 +3,12 @@ version: 1.0.0
 main: me.theparanker.duel.bootstrap.CoralDuelPlugin
 commands:
   test:
+  duel:
+    description: Challenge another player to a duel
+    usage: /duel <player>
+  duelaccept:
+    description: Accept a duel request
+    usage: /duelaccept <player>
+  dueldeny:
+    description: Deny a duel request
+    usage: /dueldeny <player>

@@ -1,0 +1,63 @@
+duel:
+  only-players: "&cSolo i giocatori possono usare questo comando!"
+  already-in-duel: "&cSei già in un duello!"
+  usage: "&cUtilizzo: /duel <giocatore>"
+  player-not-found: "&cGiocatore non trovato!"
+  cannot-duel-yourself: "&cNon puoi sfidare te stesso!"
+  target-in-duel: "&c{player} è già in un duello!"
+  no-kits-available: "&cNessun kit disponibile!"
+  select-kit: "&aSeleziona un kit per sfidare {player}!"
+  
+arena:
+  no-arenas-available: "&cNessuna arena disponibile!"
+  
+start:
+  duel-started: "&aDuello iniziato contro {player}!"
+  get-ready: "&7Preparati!"
+  fight: "&aLOTTA!"
+  duel-has-started: "&7Il duello è iniziato!"
+  
+countdown:
+  cannot-move: "&cNon puoi muoverti durante il conto alla rovescia!"
+  
+timer:
+  time-left: "&eTempo rimanente: {time} secondi!"
+  
+end:
+  eliminated: "&cSei stato eliminato!"
+  you-eliminated: "&aHai eliminato {player}!"
+  you-won: "&aHai vinto il duello contro {player}!"
+  you-lost: "&cHai perso il duello contro {player}!"
+  duel-tie: "&eIl duello è finito in pareggio!"
+  
+request:
+  sent: "&aRichiesta di duello inviata a {player} con il kit {kit}!"
+  already-pending: "&cHai già una richiesta di duello in sospeso!"
+  target-has-pending: "&c{player} ha già una richiesta di duello in sospeso!"
+  challenge-message: "&e{player} ti ha sfidato a duello con il kit {kit}!"
+  expired: "&cLa tua richiesta di duello a {player} è scaduta."
+  target-expired: "&7La richiesta di duello da {player} è scaduta."
+  accepted: "&aHai accettato la richiesta di duello da {player}!"
+  challenger-accepted: "&a{player} ha accettato la tua richiesta di duello!"
+  denied: "&cHai rifiutato la richiesta di duello da {player}."
+  challenger-denied: "&c{player} ha rifiutato la tua richiesta di duello."
+  no-pending-request: "&cNessuna richiesta di duello in sospeso da {player}!"
+  challenger-offline: "&cIl giocatore che ti ha sfidato non è più online!"
+  no-permision: "&cNon hai il permesso di usare questo kit!"
+  
+gui:
+  select-kit-title: "&5Seleziona Kit - Duello {player}"
+  click-to-challenge: "&7Clicca per sfidare {player}"
+  with-this-kit: "&7con questo kit!"
+  kit-name: "&eKit: {kit}"
+  cancel: "&cAnnulla"
+  cancel-lore: "&7Clicca per annullare la richiesta di duello"
+  request-cancelled: "&cRichiesta di duello annullata."
+  target-not-found: "&cGiocatore bersaglio non trovato!"
+  kit-not-identified: "&cImpossibile identificare il kit selezionato!"
+  
+buttons:
+  accept: "&a[ACCETTA]"
+  deny: "&c[RIFIUTA]"
+  accept-hover: "Clicca per accettare il duello"
+  deny-hover: "Clicca per rifiutare il duello"

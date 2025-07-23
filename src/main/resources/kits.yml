@@ -1,6 +1,7 @@
 Kits:
   default:
     display-name: "&fDefault Kit"
+    permission: "duels.kit.default"
 
     icon:
       type: DIAMOND_SWORD
@@ -13,27 +14,27 @@ Kits:
       helmet:
         type: DIAMOND_HELMET
         enchantments:
-          PROTECTION: 2
-          UNBREAKING: 3
+          PROTECTION_ENVIRONMENTAL: 2
+          DURABILITY: 3
       chestplate:
         type: DIAMOND_CHESTPLATE
         enchantments:
-          PROTECTION: 2
+          PROTECTION_ENVIRONMENTAL: 2
       leggings:
         type: DIAMOND_LEGGINGS
         enchantments:
-          PROTECTION: 2
+          PROTECTION_ENVIRONMENTAL: 2
       boots:
         type: DIAMOND_BOOTS
         enchantments:
-          PROTECTION: 2
+          PROTECTION_ENVIRONMENTAL: 2
 
     inventory:
       '0':
         type: DIAMOND_SWORD
         enchantments:
-          SHARPNESS: 2
-          UNBREAKING: 3
+          DAMAGE_ALL: 2
+          DURABILITY: 3
       '1':
         type: GOLDEN_APPLE
         amount: 5
@@ -43,7 +44,7 @@ Kits:
       '8':
         type: BOW
         enchantments:
-          POWER: 1
+          ARROW_DAMAGE: 1
       '9':
         type: ARROW
         amount: 16

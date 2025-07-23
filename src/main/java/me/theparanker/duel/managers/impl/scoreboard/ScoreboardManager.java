@@ -3,6 +3,7 @@ package me.theparanker.duel.managers.impl.scoreboard;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.Getter;
 import me.theparanker.duel.managers.structure.Manager;
+import org.bukkit.entity.Player;
 
 import java.util.Map;
 import java.util.UUID;
@@ -29,6 +30,23 @@ public class ScoreboardManager implements Manager {
         }
         boards.clear();
         INSTANCE = null;
+    }
+    
+    public void updateScoreboard(Player player) {
+        FastBoard board = boards.get(player.getUniqueId());
+        if (board == null) {
+            board = new FastBoard(player);
+            boards.put(player.getUniqueId(), board);
+        }
+        
+        provider.updateBoard(board, player);
+    }
+    
+    public void removeScoreboard(Player player) {
+        FastBoard board = boards.remove(player.getUniqueId());
+        if (board != null) {
+            board.delete();
+        }
     }
 
     public static ScoreboardManager get() {

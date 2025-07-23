@@ -32,7 +32,7 @@ public interface ItemUtils {
         if (section.contains("enchantments")) {
             ConfigurationSection enchantsSection = section.getConfigurationSection("enchantments");
             for (String enchantKey : enchantsSection.getKeys(false)) {
-                Enchantment enchantment = Enchantment.getByName(enchantKey.toUpperCase());
+                Enchantment enchantment = Enchantment.getByName(enchantKey);
                 int level = enchantsSection.getInt(enchantKey);
                 if (enchantment != null) {
                     builder.addEnchantment(enchantment, level);

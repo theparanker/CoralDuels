@@ -49,15 +49,19 @@ public class ScoreboardProvider {
         }
     }
 
-    private void updateBoard(FastBoard board, Player player) {
+    public void updateBoard(FastBoard board, Player player) {
         Duel duel = DuelsManager.get().getDuelByPlayer(player);
-        if (duel == null) removeBoard(player);
+        if (duel == null) {
+            removeBoard(player);
+            return;
+        }
 
-        List<String> rawLines = cfg.getStringList("scoreboard.lines");
+        List<String> rawLines = new java.util.ArrayList<>(cfg.getStringList("scoreboard.lines"));
         String title = cfg.getString("scoreboard.title");
+        int remaining = duel.startTime() == 0 ? duel.timeLeft() : Math.max(0, duel.timeLeft() - (int)((System.currentTimeMillis() - duel.startTime()) / 1000));
         rawLines.replaceAll(replace -> CC.translate(replace
                 .replace("%kit%", duel.kit().displayName())
-                .replace("%time_remain%", String.valueOf(duel.timeLeft()))));
+                .replace("%time_remain%", String.valueOf(remaining))));
 
         board.updateTitle(CC.translate(title));
         board.updateLines(rawLines);

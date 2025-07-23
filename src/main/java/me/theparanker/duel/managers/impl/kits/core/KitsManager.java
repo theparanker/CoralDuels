@@ -6,6 +6,7 @@ import me.theparanker.duel.managers.impl.kits.structure.Kit;
 import me.theparanker.duel.managers.impl.user.core.UserManager;
 import me.theparanker.duel.managers.impl.user.structure.UserStructure;
 import me.theparanker.duel.managers.structure.Manager;
+import me.theparanker.duel.utils.CC;
 import me.theparanker.duel.utils.ItemUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -42,7 +43,9 @@ public class KitsManager implements Manager {
         for (String kitKey : kitsSection.getKeys(false)) {
             ConfigurationSection kitSection = kitsSection.getConfigurationSection(kitKey);
 
-            String displayName = kitSection.getString("display-name", kitKey);
+            String displayName = CC.translate(kitSection.getString("display-name", kitKey));
+
+            String permission = kitSection.getString("permission");
 
             ConfigurationSection iconSection = kitSection.getConfigurationSection("icon");
             ItemStack icon = ItemUtils.deserializeItem(iconSection);
@@ -71,80 +74,18 @@ public class KitsManager implements Manager {
                 }
             }
 
-            Kit kit = new Kit(kitKey, displayName, icon, armor, inventory);
+            Kit kit = new Kit(kitKey, displayName, permission, icon, armor, inventory);
             kits.put(kitKey, kit);
         }
     }
 
-    public void savePlayerContentsToMemory(Player player) {
-        UserStructure user = UserStructure.getUser(player.getUniqueId());
-        System.out.println(user + " " + player);
-
-        ArrayList<ItemStack> contents = new ArrayList<>(List.of(player.getInventory().getContents()));
-        ArrayList<ItemStack> armor = new ArrayList<>(List.of(player.getInventory().getArmorContents()));
-        ItemStack offHand = player.getInventory().getItemInOffHand();
-
-        UserStructure updatedUser = user
-                .withInventory(contents)
-                .withArmor(armor)
-                .withOffHand(offHand);
-        UserManager.get().updateCache(updatedUser, false);
+    public Kit getKit(String name) {
+        return kits.get(name);
     }
-
-    public void restorePlayerContentsFromMemory(Player player) {
-        UserStructure user = UserStructure.getUser(player.getUniqueId());
-        if (user == null) return;
-
-        player.getInventory().clear();
-
-        List<ItemStack> contents = user.inventory();
-        if (contents != null) {
-            for (int i = 0; i < contents.size(); i++) {
-                ItemStack item = contents.get(i);
-                if (item != null) {
-                    player.getInventory().setItem(i, item);
-                }
-            }
-        }
-
-        List<ItemStack> armor = user.armor();
-        if (armor != null) {
-            if (armor.size() > 0) player.getInventory().setBoots(armor.get(0));
-            if (armor.size() > 1) player.getInventory().setLeggings(armor.get(1));
-            if (armor.size() > 2) player.getInventory().setChestplate(armor.get(2));
-            if (armor.size() > 3) player.getInventory().setHelmet(armor.get(3));
-        }
-
-        ItemStack offHand = user.offHand();
-        player.getInventory().setItemInOffHand(offHand);
-
-        player.updateInventory();
+    
+    public Map<String, Kit> getAllKits() {
+        return new HashMap<>(kits);
     }
-
-
-    public void giveKitToPlayer(Player player, Kit kit) {
-        player.getInventory().clear();
-
-        ItemStack[] armor = kit.armor();
-        if (armor != null) {
-            if (armor.length > 0 && armor[0] != null) player.getInventory().setBoots(armor[0]);
-            if (armor.length > 1 && armor[1] != null) player.getInventory().setLeggings(armor[1]);
-            if (armor.length > 2 && armor[2] != null) player.getInventory().setChestplate(armor[2]);
-            if (armor.length > 3 && armor[3] != null) player.getInventory().setHelmet(armor[3]);
-        }
-
-        ItemStack[] contents = kit.inventoryContents();
-        if (contents != null) {
-            for (int i = 0; i < contents.length; i++) {
-                if (contents[i] != null) {
-                    player.getInventory().setItem(i, contents[i]);
-                }
-            }
-        }
-
-        player.updateInventory();
-    }
-
 
     public static KitsManager get() {
         return INSTANCE;
